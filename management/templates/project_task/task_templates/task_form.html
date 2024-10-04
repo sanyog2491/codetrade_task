@@ -1,0 +1,41 @@
+{% extends 'project_task/base.html' %}
+
+{% block title %}Create Task{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Create Task</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Task Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select class="form-control" id="status" name="status">
+                    <option value="pending">Pending</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="due_date">Due Date:</label>
+                <input type="date" class="form-control" id="due_date" name="due_date" required>
+            </div>
+            <div class="form-group">
+                <label for="project">Select Project:</label>
+                <select class="form-control" id="project" name="project" required>
+                    {% for project in projects %}
+                        <option value="{{ project.id }}">{{ project.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Task</button>
+        </form>
+    </div>
+{% endblock %}

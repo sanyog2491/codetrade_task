@@ -1,0 +1,21 @@
+{% extends 'project_task/base.html' %}
+
+{% block title %}{{ project.name }}{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>{{ project.name }}</h1>
+        <p><strong>Description:</strong> {{ project.description }}</p>
+        <p><strong>Created By:</strong> {{ project.created_by.username }}</p>
+        
+        <h2>Tasks</h2>
+        <ul>
+            {% for task in project.tasks.all %}  
+                <li>{{ task.name }} - Status: {{ task.get_status_display }}</li>
+            {% empty %}
+                <li>No tasks available for this project.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'project_list' %}" class="btn btn-secondary">Back to Project List</a>
+    </div>
+{% endblock %}
